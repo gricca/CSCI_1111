@@ -1,0 +1,29 @@
+public class CharSort { 
+
+   public static void main (String[] argv) 
+   { 
+       String w = "Cowabunga"; 
+       char[] letters = w.toCharArray (); 
+
+       for (int i=0; i<letters.length-1; i++) { 
+           char smallest = letters[i]; 
+           int smallestIndex = i; 
+           for (int j=i+1; j<letters.length; j++) { 
+                if (letters[j] < smallest) { 
+                    smallest = letters[j]; 
+                    smallestIndex = j; 
+                }
+            }
+
+            char temp = letters[i]; 
+            letters[i] = letters[smallestIndex]; 
+            letters[smallestIndex] = temp; 
+        }
+
+        for (int i=0; i<letters.length; i++) { 
+             System.out.print (letters[i]); 
+        }
+        System.out.println (); 
+   }
+
+}
