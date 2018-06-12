@@ -1,0 +1,198 @@
+public class Simulation {
+
+    // Number of particles (N), the xy location of each, and color.
+    static int N = 10;
+    static double[] x;
+    static double[] y;
+    static boolean[] isRed;
+
+    // The bounds of the region.
+    static double size = 10;
+
+    static int numSteps = 100;
+
+    // How close do you have to be to get infected?
+    static double infectionDistance = 0.5;
+
+
+    public static void main (String[] argv)
+    {
+	DrawTool.display ();
+	DrawTool.setXYRange (0, size, 0, size);
+	DrawTool.startAnimationMode ();
+
+	initialize ();
+
+	for (int step=1; step<=numSteps; step++) {
+
+	    // Spread.
+	    infectionSpread ();
+
+	    // Move each particle and draw
+	    for (int i=0; i<N; i++) {
+		move (i);
+		draw (i);
+	    }
+
+	    DrawTool.animationPause (100);
+	}
+
+	DrawTool.endAnimationMode ();
+    }
+
+    public static int simulateNumSteps (
+        int numParticles,               // Desired # particles
+        double infDist,                 // Infection distance
+        int targetCount)                // Simulate until so many infected.
+    {
+	// INSERT YOUR CODE HERE
+         N = numParticles;
+        infectionDistance = infDist;
+        int steps = 0;  
+        initialize ();
+        for (int step = 1; step <= numSteps; step++) {
+               infectionSpread ();
+	       steps++;
+               if (countInfected() >= targetCount) {
+                  return steps;
+                  }
+               for (int i=0; i<N; i++) {
+                   move (i);
+               }
+        }            
+        //System.out.println ("This is how long it took to be infected: " + steps);
+	return steps;
+    }
+
+    public static int simulateNumInfected (
+        int numParticles,               // Desired # particles
+        double infDist,                 // Infection distance
+        int desiredNumSteps)            // Simulate for this many steps
+    {
+	// INSERT YOUR CODE HERE
+       
+        N = numParticles;
+        infectionDistance = infDist;  
+        int numinfected = 0; 
+        initialize ();
+        for (int step=1; step<=desiredNumSteps; step++) {
+            infectionSpread ();
+            for (int i=0; i<N; i++) {
+                 move (i);
+            }
+        }
+       
+
+        // Temporarily (so it compiles):
+        //System.out.println ("This is how many are infected: " + numinfected);               
+        return countInfected(); 
+
+    }
+
+    static int countInfected ()
+    {
+	int count = 0;
+	for (int i=0; i<N; i++) {
+	    if (isRed[i]) {
+		count ++;
+	    }
+	}
+	return count;
+    }
+
+    static void initialize ()
+    {
+	// Random initial locations.
+	x = makeRandomArray ();
+	y = makeRandomArray ();
+	
+	// Default: all false;
+	isRed = new boolean [N];
+
+	// The first particle is infected:
+	isRed[0] = true;
+    }
+
+    static double[] makeRandomArray ()
+    {
+	double[] z = new double [N];
+	for (int i=0; i<N; i++) {
+	    z[i] = 10 * Math.random ();
+	}
+	return z;
+    }
+
+    static void move (int i)
+    {
+	double xDiff = randomDouble (-1, 1);
+	double yDiff = randomDouble (-1, 1);
+	if ( withinBounds(x[i]+xDiff, y[i]) ) {
+	    x[i] += xDiff;
+	}
+	if ( withinBounds(x[i], y[i]+yDiff) ) {
+	    y[i] += yDiff;
+	}
+    }
+
+    static void draw (int i)
+    {
+	if (isRed[i]) {
+	    DrawTool.setOvalColor ("red");
+	}
+	else {
+	    DrawTool.setOvalColor ("blue");
+	}
+	DrawTool.drawCircle (x[i], y[i], 0.1);
+    }
+
+    static void infectionSpread ()
+    {
+	for (int n=0; n<N; n++) {
+	    if (! isRed[n]) {
+		// See if this blue is near some other red
+		for (int m=0; m<N; m++) {
+		    if (isRed[m]) {
+			// Check distance.
+			double d = distance (x[n],y[n], x[m], y[m]);
+			if (d < infectionDistance) {
+			    isRed[n] = true;
+			}
+		    }
+		}
+	    }
+	}
+    }
+
+    static boolean withinBounds (double x1, double y1)
+    {
+	if ( (x1 < 0) || (x1 > size) ) {
+	    return false;
+	}
+
+	if ( (y1 < 0) || (y1 > size) ) {
+	    return false;
+	}
+	
+	return true;
+    }
+
+    static double distance (double x1, double y1, double x2, double y2)
+    {
+	return Math.sqrt ((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    }
+
+    static double randomDouble (double low, double high)
+    {
+	double u = Math.random ();
+	double v = low + u * (high-low);
+	return v;
+    }
+
+    static int randomInt (int low, int high)
+    {
+	double u = randomDouble (low, high+1);
+	int k = (int) Math.floor (u);
+	return k;
+    }
+
+}
