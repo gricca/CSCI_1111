@@ -1,0 +1,16 @@
+public class FirstLast { 
+
+   public static void main (String[] argv) 
+   { 
+       String[] words = WordTool.getUnixWords (); 
+       int n = 0; 
+   
+       for (String w: words) { 
+           int lastIndex = w.length() - 1; 
+           if ( w.charAt(0) == w.charAt(lastIndex) ) { 
+              System.out.println (w); 
+              n++; 
+           } 
+       }
+   } 
+}
