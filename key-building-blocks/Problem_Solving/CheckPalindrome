@@ -1,0 +1,74 @@
+public class CheckPalindrome { 
+
+   public static void main (String[] argv) 
+   { 
+       char[] sentence = {'n', 'e', 'v', 'e', 'r', ' ', 'o', 'd', 'd', ' ', 'o', 'r', 'e', 'v', 'e', 'n'}; 
+
+       char[] withoutBlanks = removeBlanks (sentence); 
+
+       if ( isPalindrome (withoutBlanks) ) { 
+          System.out.println ("Yup, it's a palindrome alright"); 
+       }
+
+       char[] studentPlea = {'C', 'a', 'n', ' ', 'i', ' ', 'a', 't', 't', 'a', 'i', 'n', ' ', 'a', ' ', 'C'};
+
+       char[] withoutBlanks1 = removeBlanks (studentPlea);
+
+       if ( isPalindrome (withoutBlanks1) ) {
+          System.out.println ("Yup, it's a palindrome alright");
+
+       }
+       
+
+       char[] yourFavorite = {'s', 't', 'r', 'e', 's', 's', 'e', 'd', ' ', 'd', 'e', 's', 's', 'e', 'r', 't', 's'};
+
+       char[] withoutBlanks2 = removeBlanks (yourFavorite);
+
+       if ( isPalindrome (withoutBlanks2) ) {
+          System.out.println ("Yup, it's a palindrome alright"); 
+       }
+
+       char[] test = {'n', 'o', 't', ' ', 'a', ' ', 'p', 'a', 'l', 'i', 'n', 'd', 'r', 'o', 'm', 'e'};
+
+       char[] withoutBlanks3 = removeBlanks (test);
+
+       if ( isPalindrome (withoutBlanks3) ) {
+          System.out.println ("Yup, it's a palindrome alright"); 
+       }
+   } 
+
+   static char[] removeBlanks (char[] A)
+   { 
+       int numBlanks = 0; 
+       for (int i=0; i<A.length; i++) { 
+           if (A[i] == ' ') { 
+              numBlanks ++; 
+           }
+       }
+
+       int size = A.length - numBlanks; 
+       char[] B = new char [size]; 
+       char[] temp = new char [A.length];
+
+       for (int i=0; i<A.length; i++) { 
+           if (A[i] != ' ') {
+              temp[i] = A[i];
+           for (int j=0; j<size; j++) { 
+               B[j] = temp[i];
+               }
+           }
+       }  
+       return B; 
+   }
+   
+   static boolean isPalindrome (char[] letters)
+   { 
+       int n = letters.length; 
+       for (int i=0; i<(n-1)/2; i++) { 
+           if (letters[i] != letters[n-i-1]) { 
+               return false;
+           }
+       }
+       return true;
+   }
+}      
