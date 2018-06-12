@@ -1,0 +1,22 @@
+public class ArrayMean {
+
+   public static void main (String[] argv) 
+   { 
+       double[] data = {4.0, 5.0, 2.0, 1.0, 3.0}; 
+       double m = computeMean (data); 
+       System.out.println (m); 
+   }
+
+   static double computeMean (double[] A) 
+   {
+       double sum = 0;
+       double number = 0;
+       double mean = 0;  
+       for (int i=0; i<A.length; i++) {
+           sum += A[i]; 
+           number ++; 
+           mean = sum / number; 
+       }
+       return mean; 
+   }
+}
