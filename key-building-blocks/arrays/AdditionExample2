@@ -1,0 +1,33 @@
+public class AdditionExample2 {
+
+   public static void main (String[] argv) 
+   {
+       int[] A = {1, 4, 9, 16, 25}; 
+       int[] B = new int [A.length]; 
+       int n = A.length;
+
+       int sum = 0; 
+       for (int i=0; i<n; i++) { 
+           sum += A[i]; 
+           }
+           System.out.println ("This is the sum: " + sum);
+
+       int temp = 0;  
+       for (int i=0; i<n/2; i++) { 
+           temp = A[i];
+           A[i] = A[n-1-i];
+           A[n-i-1] = temp;  
+        }
+
+        for (int i=0; i<n; i++) {
+             System.out.println ("This is " + i + " of reversed array: " + A[i]); 
+             }
+        for (int i=0; i<n; i++) {        
+             B[i] = A[i];
+             }
+        for (int i=0; i<n; i++) {  
+            System.out.println ("This is " + i + " of array B: " + B[i]);
+            } 
+    }
+
+}
