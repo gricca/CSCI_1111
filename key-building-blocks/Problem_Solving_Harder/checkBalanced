@@ -1,0 +1,44 @@
+public class checkBalanced { 
+
+   public static void main (String[] argv) 
+   { 
+       String s = "(a(bc)d)(e)f"; 
+       checkBalanced (s); 
+       s = "What I said (I mean ... (really?)) was (I'm not sure now) that it's true";
+       checkBalanced (s);
+       s = ")(";
+       checkBalanced (s);
+       s = "()(()()(";
+       checkBalanced (s);
+
+   }
+
+   static  boolean checkBalanced (String s)
+   {
+       char[] letters = s.toCharArray ();
+       int numLeft = countChar (letters, '(');
+       int numRight = countChar (letters, ')');
+ 
+       System.out.println ("numLeft=" + numLeft + " numRight=" + numRight); 
+       if (numLeft != numRight) {
+          return false;
+       }
+       return true;
+   }
+
+   static int countChar (char[] letters, char c) 
+   { 
+       int numLeft = 0; 
+       int numRight = 0; 
+
+       for (int i=0; i<letters.length; i++) { 
+           if (letters[i] == '(' ) {
+              numLeft ++; 
+           }
+           if (letters[i] == ')' ) {
+              numRight++;
+           }
+       }
+       return numLeft;
+   }
+}
