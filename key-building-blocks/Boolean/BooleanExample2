@@ -1,0 +1,26 @@
+public class BooleanExample2 { 
+
+   public static void main (String[] argv) 
+   {
+       boolean a = true; 
+       boolean b = false; 
+       boolean c = true; 
+       boolean d = false; 
+
+       boolean w = a && b; 
+       System.out.println (w); 
+
+       boolean x = a && c; 
+       System.out.println (x);
+
+       boolean y = a || b; 
+       System.out.println (y);
+
+       boolean z = b || d; 
+       System.out.println (z);
+
+       boolean u = !a; 
+       System.out.println (u);
+   }
+
+}
